@@ -1,8 +1,342 @@
+/* ==========================================================================
+   GUAYOYO · styles.css
+   --------------------------------------------------------------------------
+   Índice
+   1. Variables (design tokens)
+   2. Reset
+   3. Base (tipografía y elementos globales)
+   4. Layout (estructura de página y pantallas)
+   5. Componentes
+      5.1 Botones
+      5.2 Cabecera de pantalla
+      5.3 Título del café
+      5.4 Rueda del temporizador
+      5.5 Meta de agua
+      5.6 Controles
+      5.7 Lista de datos de la receta
+   6. Accesibilidad (foco y movimiento reducido)
+   7. Pantallas grandes
+   --------------------------------------------------------------------------
+   Convenciones
+   - Mobile first: los estilos base son para móvil; las media queries añaden.
+   - Nombres de clase en BEM sencillo: bloque, bloque__elemento.
+   - Los id se reservan para JavaScript; los estilos van en clases.
+   - Colores, tamaños y espacios salen siempre de las variables de :root.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. VARIABLES
+   Para cambiar la paleta o las proporciones, se modifica solo este bloque.
+   ========================================================================== */
+:root {
+  /* Color */
+  --color-fondo: #ffffff;
+  --color-texto: #1d1b20;
+  --color-texto-suave: #49454f;
+  --color-principal: #d0bcff;       /* botones principales */
+  --color-principal-hover: #c2a9fb;
+  --color-anillo: #e8def8;          /* fondo de la rueda */
+  --color-linea: #cac4d0;           /* separadores */
+  --color-acento: #6750a4;          /* foco y elementos editables */
+  --color-hover: #f3edf7;           /* fondo al pasar sobre un botón */
+
+  /* Tipografía */
+  --fuente: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --texto-s: 0.875rem;
+  --texto-m: 1rem;
+  --texto-l: 1.25rem;
+  --texto-xl: 1.75rem;
+  --texto-reloj: 3rem;
+
+  /* Espaciado (escala de 4 px) */
+  --espacio-1: 0.25rem;
+  --espacio-2: 0.5rem;
+  --espacio-3: 0.75rem;
+  --espacio-4: 1rem;
+  --espacio-5: 1.5rem;
+  --espacio-6: 2rem;
+
+  /* Medidas */
+  --ancho-app: 30rem;               /* 480 px */
+  --zona-tactil: 2.75rem;           /* 44 px: mínimo recomendado para el dedo */
+  --rueda-tamano: 17.5rem;          /* 280 px */
+  --rueda-margen-texto: 18%;        /* mantiene el texto dentro del anillo */
+  --radio-pildora: 999px;
+}
+
+
+/* ==========================================================================
+   2. RESET
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+p,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Un display explícito en un elemento (p. ej. los botones) anularía el atributo
+   hidden. Esta regla garantiza que hidden siempre oculte. */
+[hidden] {
+  display: none !important;
+}
+
+
+/* ==========================================================================
+   3. BASE
+   ========================================================================== */
+body {
+  min-height: 100dvh;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: var(--fuente);
+  font-size: var(--texto-m);
+  line-height: 1.5;
+}
+
+h1 {
+  font-size: var(--texto-xl);
+  line-height: 1.2;
+  text-align: center;
+}
+
+
+/* ==========================================================================
+   4. LAYOUT
+   ========================================================================== */
+main {
+  max-width: var(--ancho-app);
+  margin-inline: auto;
+  padding: var(--espacio-4);
+}
+
+/* Separación vertical entre los bloques de una pantalla */
+section > * + * {
+  margin-top: var(--espacio-4);
+}
+
+
+/* ==========================================================================
+   5. COMPONENTES
+   ========================================================================== */
+
+/* --- 5.1 Botones ---------------------------------------------------------
+   Base: botón circular con zona táctil mínima. Los botones de acción
+   principal (5.5) añaden su propio fondo. */
+button {
+  display: inline-grid;
+  place-items: center;
+  min-width: var(--zona-tactil);
+  min-height: var(--zona-tactil);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+button:hover:not(:disabled) {
+  background: var(--color-hover);
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+button svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+
+/* --- 5.2 Cabecera de pantalla -------------------------------------------- */
+.cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* --- 5.3 Título del café ---------------------------------------------------- */
+.titulo__linea {
+  display: block;       /* cada línea ocupa su propia fila */
+}
+
+.titulo__linea:empty {
+  display: none;        /* si un dato no existe, la línea no deja hueco */
+}
+
+/* --- 5.4 Rueda del temporizador -------------------------------------------
+   Estructura: el SVG dibuja el anillo y el texto se superpone encima.
+   El contenedor es la referencia de posicionamiento. */
+.rueda {
+  position: relative;
+  width: min(100%, var(--rueda-tamano));
+  margin-inline: auto;
+}
+
 .rueda svg {
-  width: 250px;
-  height: 250px;
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .rueda__fondo {
-  stroke: #ccc;
+  stroke: var(--color-anillo);
+}
+
+.rueda__texto {
+  position: absolute;
+  inset: 0;                          /* cubre todo el contenedor */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--rueda-margen-texto);
+  text-align: center;
+}
+
+/* Se reserva el alto aunque el texto esté vacío, para que el reloj
+   no cambie de sitio cuando aparece el nombre o la instrucción. */
+.rueda__nombre {
+  min-height: 1.5em;
+  font-size: var(--texto-l);
+  font-weight: 600;
+}
+
+.rueda__tiempo {
+  font-size: var(--texto-reloj);
+  font-variant-numeric: tabular-nums;  /* cifras de ancho fijo: el reloj no "baila" */
+  line-height: 1.1;
+}
+
+.rueda__instruccion {
+  min-height: 2.8em;                 /* dos líneas */
+  font-size: var(--texto-s);
+  line-height: 1.4;
+  color: var(--color-texto-suave);
+}
+
+
+/* --- 5.5 Meta de agua ----------------------------------------------------
+   Es el dato que se mira en la báscula: grande y siempre en el mismo sitio. */
+.meta-agua {
+  min-height: 1.3em;
+  font-size: var(--texto-xl);
+  font-weight: 600;
+  text-align: center;
+}
+
+
+/* --- 5.6 Controles (iniciar / pausar) ------------------------------------ */
+.controles {
+  display: flex;
+  justify-content: center;
+  gap: var(--espacio-4);
+}
+
+.controles button {
+  min-width: 4rem;
+  min-height: 4rem;
+  border-radius: var(--radio-pildora);
+  background: var(--color-principal);
+}
+
+.controles button:hover:not(:disabled) {
+  background: var(--color-principal-hover);
+}
+
+.controles svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+
+/* --- 5.7 Lista de datos (receta, y más adelante descripción del café) ------
+   Estructura: dl > div > dt (etiqueta) + dd (valor).
+   Cada fila: etiqueta a la izquierda, valor a la derecha, línea debajo. */
+.datos > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-4);
+  padding-block: var(--espacio-3);
+  border-bottom: 1px solid var(--color-linea);
+}
+
+.datos dt {
+  font-weight: 600;
+}
+
+.datos dd {
+  display: flex;
+  align-items: baseline;
+  gap: var(--espacio-1);
+}
+
+/* Campo editable (dosis): discreto, pero reconocible por el subrayado discontinuo */
+.datos input {
+  width: 4.5rem;
+  padding: var(--espacio-1);
+  border: 0;
+  border-bottom: 2px dashed var(--color-acento);
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: right;
+  appearance: textfield;             /* quita las flechas del campo numérico (Firefox) */
+}
+
+.datos input::-webkit-outer-spin-button,
+.datos input::-webkit-inner-spin-button {
+  appearance: none;                  /* ídem para Chrome, Edge y Safari */
+  margin: 0;
+}
+
+.datos input:disabled {
+  border-bottom-style: solid;
+  border-bottom-color: transparent;
+}
+
+
+/* ==========================================================================
+   6. ACCESIBILIDAD
+   ========================================================================== */
+
+/* Contorno visible solo al navegar con teclado */
+:focus-visible {
+  outline: 3px solid var(--color-acento);
+  outline-offset: 2px;
+}
+
+/* Quien tiene activado "reducir movimiento" en su sistema no ve transiciones */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* ==========================================================================
+   7. PANTALLAS GRANDES
+   ========================================================================== */
+@media (min-width: 37.5rem) {          /* 600 px */
+  main {
+    padding-block: var(--espacio-6);
+  }
 }
