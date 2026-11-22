@@ -4,10 +4,10 @@
 
 ### Día 1: el proyecto existe y está en línea
 - [x] 1.1 Crear repositorio y estructura de carpetas
-- [ ] 1.2 Pasar los documentos de la Fase 0 a `docs/`
-- [ ] 1.3 `index.html` con la estructura de la pantalla de preparación
-- [ ] 1.4 CSS base para móvil: variables, tipografía, columna centrada
-- [ ] 1.5 Primer despliegue en el hosting
+- [x] 1.2 Pasar los documentos de la Fase 0 a `docs/`
+- [x] 1.3 `index.html` con la estructura de la pantalla de preparación
+- [x] 1.4 CSS base para móvil: variables, tipografía, columna centrada
+- [x] 1.5 Primer despliegue en el hosting
 
 ### Día 2: la lógica de cálculo
 - [ ] 2.1 Datos de ejemplo: el Kenya Mukurweini como objeto

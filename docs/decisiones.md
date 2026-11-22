@@ -12,6 +12,7 @@
 | Tests con `node --test` | Viene incluido en Node, no requiere instalar nada | Solo prueba la lógica, no la interfaz |
 | Screen Wake Lock API para mantener la pantalla encendida | Sin ella el móvil se apaga a mitad de la preparación | No funciona en todos los navegadores y se libera al cambiar de pestaña: hay que reactivarla y no depender de ella |
 | Hosting estático | La app son archivos estáticos y se publica al subir cambios | Revisar las condiciones vigentes del plan gratuito |
+|Hosting en GitHub Pages | Gratuito y la web se actualiza con cada commit que suba | El dominio no es propio, pero no es importante para este proyecto |
 
 ## Estructura prevista
 
