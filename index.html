@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guayoyo</title>
+  <link rel="stylesheet" href="src/css/styles.css">
+</head>
+<body>
+    <main>
+
+        <section id="pantalla-inicio">
+        <!-- código -->
+        </section>
+
+        <section id="pantalla-preparacion">
+            <header>
+                <button aria-label="Volver" type="button" id="boton-volver">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true" focusable="false">
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                    </svg>
+                </button>
+
+                <button aria-label="Editar café" type="button" id="boton-editar">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true" focusable="false">
+                        <path d="M5,21q-0.83,0-1.41-0.59T3,19V5Q3,4.17 3.59,3.59T5,3h8.93l-2,2H5V19H19V12.05l2-2V19q0,0.82-0.59,1.41T19,21H5Zm7-9ZM9,15V10.75l9.18-9.18q0.3-0.3 0.68-0.45q0.38-0.15 0.75-0.15q0.4,0 0.76,0.15q0.36,0.15 0.66,0.45L22.43,3q0.28,0.3 0.43,0.66T23,4.4T22.86,5.14T22.43,5.8L13.25,15H9ZM21.03,4.4L19.63,3l1.4,1.4ZM11,13h1.4l5.8-5.8L17.5,6.5L16.78,5.8L11,11.58V13Zm6.5-6.5L16.78,5.8L17.5,6.5l0.7,0.7L17.5,6.5Z"/>
+                    </svg>
+                </button>
+            </header>
+
+            <h1 id="cafe-nombre">Kenya Mukurweini</h1>
+
+            <div class="rueda">
+                <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+                    <circle class="rueda__fondo" cx="50" cy="50" r="45" fill="none" stroke-width="8"/>
+                </svg>
+
+                <div class="rueda__texto">
+                    <p id="paso-nombre"></p>
+                    <p id="tiempo" role="timer">00:00</p>
+                    <p id="paso-instruccion" aria-live="polite"></p>
+                </div>
+            </div>
+
+            <p id="paso-meta-agua">Hasta 50 g</p>
+
+            <button aria-label="Iniciar preparación" id="boton-iniciar" type="button">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true" focusable="false">
+                    <path d="M8,19V5l11,7L8,19Zm2-7Zm0,3.35L15.25,12L10,8.65v6.7Z"/>
+                </svg>
+            </button>
+
+            <button aria-label="Pausar preparación" id="boton-pausar" type="button" disabled>
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true" focusable="false">
+                    <path d="M13,19V5h6V19H13ZM5,19V5h6V19H5Zm10-2h2V7H15V17ZM7,17H9V7H7V17ZM7,7V17V7Zm8,0V17V7Z"/>
+                </svg>
+            </button>
+
+            <dl class="datos">
+                <div>
+                    <dt><label for="receta-dosis">Café</label></dt>
+                    <dd>
+                        <input id="receta-dosis" type="number" value="18" min="1" step="0.1" inputmode="decimal">
+                        <span>g</span>
+                    </dd>
+                </div>
+                <div>
+                    <dt>Molienda</dt>
+                    <dd id="receta-molienda">Media fina</dd>
+                </div>
+                <div>
+                    <dt>Agua</dt>
+                    <dd id="receta-agua">300 g</dd>
+                </div>
+                <div>
+                    <dt>Temperatura</dt>
+                    <dd id="receta-temperatura">88 °C</dd>
+                </div>
+                <div>
+                    <dt>Tiempo aprox.</dt>
+                    <dd id="receta-tiempo">2:30 min</dd>
+                </div>
+            </dl>
+        </section>
+
+        <section id="pantalla-edicion">
+        <!-- código -->
+        </section>
+    
+    </main>
+</body>
+</html>
